@@ -6,21 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="To do list web app">
     <title>ToDo</title>
-    <link rel="shortcut icon" href="/assets/images/todo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="/assets/stylesheets/style.css">
+    <%- include('layouts/static') -%>
     <link rel="stylesheet" href="/assets/stylesheets/todo.css">
-    <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
-    <script src="/assets/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <%- include('layouts/head') -%>
     <div class="container content">
         <div class="row justify-content-center">
+            <div class="col-6 bg-dark border border-dark rounded shadow-lg m-2 p-2 text-dark text-center">
+                <h1 class="bg-white rounded shadow p-1 m-1" onclick="show()">Add to do List</h1>
+                <form action="" method="post" name="todo" class="mt-3 text-white" onsubmit="return validateForm()" hidden>
+                    <div id="title" class="border border-dark rounded p-2 m-1">
+                        <h5 for="tit">Title</h5>
+                        <input type="text" name="title" id="tit" placeholder="Title" class="mt-1 text-center" required>
+                    </div>
+                    <div id="tasks" class="border border-dark rounded p-2 m-1">
+                        <h5 for="tks">Tasks
+                        <input type="button" value="+" onclick="addTask()" class="btn btn-success btn-sm">
+                        <input type="button" value="-" onclick="rmTask()" class="btn btn-danger btn-sm"></h5>
+                        <input type="text" name="tasks" id="task1" placeholder="Task 1" class="mt-1 text-center" required>
+                    </div>
+                    <div id="deadline" class="border border-dark rounded p-2 m-1">
+                        <h5 for="deadln">Dealine</h5>
+                        <input type="date" name="deadline" id="deadln" required>
+                    </div>
+                    <input type="submit" value="Add" class="btn btn-success">
+                </form>
+            </div>
             <% if (query && query.search) { %>
                 <h5 class="col-9 border bg-primary rounded shadow p-2 m-2 text-center"> Search On:<%= query.search %> </h5>
             <% } %>
-            <div class="col-9 bg-dark rounded shadow m-2 p-2 text-white">
+            <h1 class="col-8 border bg-primary rounded shadow p-1 mt-5 text-center">Todo List</h1>
+            <div class="col-8 bg-dark rounded shadow mt-3 p-2 text-white">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde facere repellat suscipit laboriosam
                     atque
                     quae non aut incidunt, in quam est ipsa officia, illum amet expedita mollitia fugit beatae
@@ -31,6 +49,7 @@
         </div>
     </div>
     <%- include('layouts/foot') -%>
+    <script src="/assets/js/todo.js"></script>
 </body>
 
 </html>
