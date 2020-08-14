@@ -14,10 +14,10 @@
     <div class="container content">
         <div class="row justify-content-center">
             <% if (todo && todo.id) { %>
-            <div class="col-9 bg-dark rounded shadow m-2 p-2 text-white">
+            <div class="col-9 bg-dark rounded shadow m-2 p-3 text-white">
+                <h2 class="rounded shadow border border-white p-2 text-center">Title: <%= todo.title %> </h2>
                 <ul>
                     <li>ID: <%= todo.id %> </li>
-                    <li>Title: <%= todo.title %> </li>
                     <li>Tasks:
                         <ol>
                             <% if (typeof(todo.tasks) != "object") { %>
@@ -29,7 +29,17 @@
                         </ol>
                     </li>
                     <li>Deadline: <%= todo.deadline %> </li>
+                    <li>State: <%= todo.done ? 'done':'undone'; %> </li>
                 </ul>
+                <div class="text-center">
+                    <form action="" method="get" style="display: inline;">
+                        <input type="hidden" name="done" value="done"/>
+                        <input type="submit" value="Done" class="btn btn-success">
+                    </form>
+                    <form action="" method="post" style="display: inline;">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
             </div>
             <% } %>
         </div>

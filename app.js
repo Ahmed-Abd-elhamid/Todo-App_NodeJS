@@ -1,3 +1,4 @@
+const cookie = require('./cookies');
 const express = require('express');
 const app = express();
 
@@ -18,34 +19,31 @@ app.get('/todo', (req, res) => {
     res.status(200).contentType('text/html').render('todo', { query: req.query, todos: req.cookies });
 });
 
+
 app.post('/todo', urlencodedParser, (req, res) => {
     if (!req.body) return res.sendStatus(400);
-    // res.cookie('id', )
-    let id = req.cookies.id || 1;
-    res.cookie(`id`, Number(id)+1);
-    req.body.id = id;
-    res.cookie(`todo${id}`, req.body);
-    console.log('Cookies: ', req.cookies);
+    let id = cookie.setCookie(req, res);
     res.status(204).redirect(`/todo/${Number(id)}`);
 });
 
 app.get('/todo/:id', (req, res) => {
-    let data = {
-        id: req.params.id,
-        title: "todo",
-        tasks: ['task1', 'task2', 'task3'],
-    }
-    let todo = req.cookies[`todo${req.params.id}`];
-    console.log('Cookies: ', todo);
-    res.status(200).contentType('text/html').render('todo_show', { todo: todo });
+    let query = req.query;
+    if (query.done) cookie.updateCookie(req, res); 
+    res.status(200).contentType('text/html').render('todo_show', { todo: cookie.getCookie(req) });
+});
+
+app.post('/todo/:id', (req, res) => {
+    cookie.delCookie(req, res); 
+    res.status(200).redirect(`/todo`);
+
 });
 
 app.delete('/todo', (req, res) => {
-
+    // console.log('delete');
 });
 
 app.get('/history', (req, res) => {
-    res.status(200).contentType('text/html').render('history');
+    res.status(200).contentType('text/html').render('history', { query: req.query, todos: req.cookies });
 });
 
 app.get('*', (req, res) => {
