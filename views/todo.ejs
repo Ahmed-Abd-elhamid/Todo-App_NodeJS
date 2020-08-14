@@ -34,18 +34,18 @@
                     <input type="submit" value="Add" class="btn btn-success">
                 </form>
             </div>
-            <% if (query && query.search) { %>
+            <% if (typeof(query) != "undefined" && query.search) { %>
                 <h5 class="col-9 border bg-primary rounded shadow p-2 m-2 text-center"> Search On:<%= query.search %> </h5>
             <% } %>
             <h1 class="col-8 border bg-primary rounded shadow p-1 mt-5 text-center">Todo List</h1>
-            <div class="col-8 bg-dark rounded shadow mt-3 p-2 text-white">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde facere repellat suscipit laboriosam
-                    atque
-                    quae non aut incidunt, in quam est ipsa officia, illum amet expedita mollitia fugit beatae
-                    quaerat?
-                </p>
-                <a href="/todo/1">Show Details..</a>
-            </div>
+            <% (Object.values(todos).reverse()).forEach(todo => { if(typeof(todo.title) == "undefined") return; %>             
+                <div class="col-8 bg-dark rounded shadow mt-3 p-2 text-white text-center">
+                    <a href="/todo/<%= Number(todo.id) %>" style="text-decoration: none;">
+                        <h3 class="bg-white text-dark rounded"><%= todo.title %> </h3>
+                        <h6 class="text-white"><%= todo.deadline %> </h6>
+                    </a>
+                </div>
+            <% }) %>
         </div>
     </div>
     <%- include('layouts/foot') -%>

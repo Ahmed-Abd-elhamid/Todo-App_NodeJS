@@ -13,18 +13,22 @@
     <%- include('layouts/head') -%>
     <div class="container content">
         <div class="row justify-content-center">
-            <% if (data && data.id) { %>
+            <% if (todo && todo.id) { %>
             <div class="col-9 bg-dark rounded shadow m-2 p-2 text-white">
                 <ul>
-                    <li>ID: <%= data.id %> </li>
-                    <li>Title: <%= data.title %> </li>
+                    <li>ID: <%= todo.id %> </li>
+                    <li>Title: <%= todo.title %> </li>
                     <li>Tasks:
                         <ol>
-                            <% data.tasks.forEach(task => { %>
-                            <li><%= task %> </li>
-                            <% }) %>
+                            <% if (typeof(todo.tasks) != "object") { %>
+                                <li><%= todo.tasks %> </li>
+                            <% } else { %>
+                            <% todo.tasks.forEach(task => { %>
+                                <li><%= task %> </li>
+                            <% }) }%>
                         </ol>
                     </li>
+                    <li>Deadline: <%= todo.deadline %> </li>
                 </ul>
             </div>
             <% } %>

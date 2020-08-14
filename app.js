@@ -7,22 +7,26 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 
+const cookieParser = require('cookie-parser')
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.status(200).contentType('text/html').render('index');
 });
 
 app.get('/todo', (req, res) => {
-    let query = req.query;
-    res.status(200).contentType('text/html').render('todo', { query: query });
+    res.status(200).contentType('text/html').render('todo', { query: req.query, todos: req.cookies });
 });
 
 app.post('/todo', urlencodedParser, (req, res) => {
-    let query = req.query;
     if (!req.body) return res.sendStatus(400);
-    let data = req.body;
-    console.log(data);
-    res.status(200).contentType('text/html').render('todo', { query: query, data: data });
+    // res.cookie('id', )
+    let id = req.cookies.id || 1;
+    res.cookie(`id`, Number(id)+1);
+    req.body.id = id;
+    res.cookie(`todo${id}`, req.body);
+    console.log('Cookies: ', req.cookies);
+    res.status(204).redirect(`/todo/${Number(id)}`);
 });
 
 app.get('/todo/:id', (req, res) => {
@@ -31,7 +35,13 @@ app.get('/todo/:id', (req, res) => {
         title: "todo",
         tasks: ['task1', 'task2', 'task3'],
     }
-    res.status(200).contentType('text/html').render('todo_show', { data: data });
+    let todo = req.cookies[`todo${req.params.id}`];
+    console.log('Cookies: ', todo);
+    res.status(200).contentType('text/html').render('todo_show', { todo: todo });
+});
+
+app.delete('/todo', (req, res) => {
+
 });
 
 app.get('/history', (req, res) => {
