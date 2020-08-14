@@ -16,19 +16,12 @@ let getCookie = (req) => {
 
 let updateCookie = (req, res) => {
     let todo = req.cookies[`todo${req.params.id}`];
-    if (!todo.done){
-        todo.done = !todo.done;
-        res.cookie(`todo${req.params.id}`, todo);
-    }
+    todo.done = !todo.done;
+    res.cookie(`todo${req.params.id}`, todo);
 }
 
 let delCookie = (req, res) => {
     res.clearCookie(`todo${req.params.id}`);
-    // let todo = req.cookies[`todo${req.params.id}`];
-    // if (!todo.done){
-    //     todo.done = !todo.done;
-    //     res.cookie(`todo${req.params.id}`, todo);
-    // }
 }
 module.exports = {
     setCookie: setCookie,

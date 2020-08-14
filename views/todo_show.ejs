@@ -7,44 +7,57 @@
     <meta name="description" content="To do list web app">
     <title>ToDo</title>
     <%- include('layouts/static') -%>
+    <link rel="stylesheet" href="/assets/stylesheets/todo_show.css">
 </head>
 
 <body>
     <%- include('layouts/head') -%>
+    <% if (todo && todo.id) { %>
     <div class="container content">
         <div class="row justify-content-center">
-            <% if (todo && todo.id) { %>
-            <div class="col-9 bg-dark rounded shadow m-2 p-3 text-white">
-                <h2 class="rounded shadow border border-white p-2 text-center">Title: <%= todo.title %> </h2>
-                <ul>
-                    <li>ID: <%= todo.id %> </li>
-                    <li>Tasks:
-                        <ol>
-                            <% if (typeof(todo.tasks) != "object") { %>
+            <div class="todos-container">
+                <div class="todo">
+                    <div class="todo-preview">
+                        <h6>Title</h6>
+                        <h2 class="mt-4"><%= todo.title %></h2>
+                    </div>
+                    <div class="todo-info">
+                        <div class="progress-container">
+                            <div class="progress <%=  todo.done ? 'bg-success':'bg-danger'%> "></div>
+                            <span class="progress-text"><%= todo.done ? 'done':'undone'; %></span>
+                        </div>
+                        <h6>Tasks</h6>
+                        <h5 class="mt-4 mb-5 p-1">
+                            <ol>
+                                <% if (typeof(todo.tasks) != "object") { %>
                                 <li><%= todo.tasks %> </li>
-                            <% } else { %>
-                            <% todo.tasks.forEach(task => { %>
+                                <% } else { %>
+                                <% todo.tasks.forEach(task => { %>
                                 <li><%= task %> </li>
-                            <% }) }%>
-                        </ol>
-                    </li>
-                    <li>Deadline: <%= todo.deadline %> </li>
-                    <li>State: <%= todo.done ? 'done':'undone'; %> </li>
-                </ul>
-                <div class="text-center">
-                    <form action="" method="get" style="display: inline;">
-                        <input type="hidden" name="done" value="done"/>
-                        <input type="submit" value="Done" class="btn btn-success">
-                    </form>
-                    <form action="" method="post" style="display: inline;">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
+                                <% }) }%>
+                            </ol>
+                        </h5>
+
+                        <div class="text-center">
+                            <form action="" method="get">
+                                <input type="hidden" name="done" value="done" />
+                                <input type="submit" value="<%= todo.done ? 'UnDone':'Done'; %>" class="btn <%= todo.done ? 'btn-dark':'btn-success'; %> btn1">
+                            </form>
+                            <form action="" method="delete"
+                                onsubmit="return confirm('Are You Sure You want to Delete this?');">
+                                <input type="submit" value="Delete" class="btn btn-danger btn2">
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <% } %>
+
+            <%- include('layouts/social') -%>
         </div>
     </div>
+    <% } %>
     <%- include('layouts/foot') -%>
+    <script src="/assets/js/script.js"></script>
 </body>
 
 </html>

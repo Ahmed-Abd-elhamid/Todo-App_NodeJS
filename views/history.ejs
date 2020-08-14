@@ -14,23 +14,28 @@
     <%- include('layouts/head') -%>
     <div class="container content">
         <div class="row justify-content-center">
-            <div class="col-8 bg-dark rounded shadow mt-3 p-2 text-white text-center">
-                <h1 class="border bg-primary rounded shadow p-1 text-dark text-center">Todo List</h1>
-                <% (Object.values(todos).reverse()).forEach(todo => { 
+            <div class="col-8 p-2 text-center">
+                <div class="rounded shadow p-2 text-white text-center">
+                    <h3 class="bg-blue rounded shadow p-1 m-1">Todo History</h3>
+                    <% (Object.values(todos).reverse()).forEach(todo => { 
                 if( (typeof(todo.title) == "undefined" ) || (typeof(todo.done) != "undefined" && !todo.done)){
                 return; 
              } %>
-                <div class="border rounded shadow p-2 m-3">
-                    <a href="/todo/<%= Number(todo.id) %>" style="text-decoration: none;">
-                        <h3 class="bg-white text-dark rounded"><%= todo.title %> </h3>
-                        <h6 class="text-white"><%= todo.deadline %> </h6>
-                    </a>
+                    <div class="bg-blue border rounded shadow p-1 m-2 list">
+                        <details>
+                            <summary class="p-1"><%= todo.title %><a href="/todo/<%= Number(todo.id) %>"
+                                    class="show btn btn-dark btn-sm">Show</a></summary>
+                            <p class="para h5 p-2">DeadLine: <%= todo.deadline %></p>
+                        </details>
+                    </div>
+                    <% }) %>
                 </div>
-                <% }) %>
             </div>
+            <%- include('layouts/social') -%>
         </div>
     </div>
     <%- include('layouts/foot') -%>
+    <script src="/assets/js/script.js"></script>
     <script src="/assets/js/todo.js"></script>
 </body>
 

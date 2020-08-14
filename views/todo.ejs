@@ -14,49 +14,57 @@
     <%- include('layouts/head') -%>
     <div class="container content">
         <div class="row justify-content-center">
-            <div class="col-6 bg-dark border border-dark rounded shadow-lg m-2 p-2 text-dark text-center">
-                <h1 class="bg-white rounded shadow p-1 m-1" onclick="show()">Add to do List</h1>
-                <form action="" method="post" name="todo" class="mt-3 text-white" onsubmit="return validateForm()"
-                    hidden>
-                    <div id="title" class="border border-dark rounded p-2 m-1">
-                        <h5 for="tit">Title</h5>
-                        <input type="text" name="title" id="tit" placeholder="Title" class="mt-1 text-center" required>
-                    </div>
-                    <div id="tasks" class="border border-dark rounded p-2 m-1">
-                        <h5 for="tks">Tasks
-                            <input type="button" value="+" onclick="addTask()" class="btn btn-success btn-sm">
-                            <input type="button" value="-" onclick="rmTask()" class="btn btn-danger btn-sm"></h5>
-                        <input type="text" name="tasks" id="task1" placeholder="Task 1" class="mt-1 text-center"
-                            required>
-                    </div>
-                    <div id="deadline" class="border border-dark rounded p-2 m-1">
-                        <h5 for="deadln">Dealine</h5>
-                        <input type="date" name="deadline" id="deadln" required>
-                    </div>
-                    <input type="submit" value="Add" class="btn btn-success">
-                </form>
-            </div>
             <% if (typeof(query) != "undefined" && query.search) { %>
-            <h5 class="col-9 border bg-primary rounded shadow p-2 m-2 text-center"> Search On:<%= query.search %> </h5>
+            <h5 class="col-10 border bg-blue rounded shadow p-2 m-2 text-center"> Search On:<%= query.search %> </h5>
             <% } %>
-            <div class="col-8 bg-dark rounded shadow mt-3 p-2 text-white text-center">
-                <h1 class="border bg-primary rounded shadow p-1 text-dark text-center">Todo List</h1>
-                <% (Object.values(todos).reverse()).forEach(todo => { 
+            <div class="col-4 m-2">
+                <div class="col-12 border border-white rounded shadow-lg p-2 text-dark text-center">
+                    <h4 class="bg-white rounded shadow p-1 m-1" onclick="show()">Add ToDo</h4>
+                    <form action="" method="post" name="todo" class="mt-3 text-white" onsubmit="return validateForm()"
+                        hidden>
+                        <div id="title" class="bg-blue border border-dark rounded shadow p-2 m-3">
+                            <h5 for="tit">Title</h5>
+                            <input type="text" name="title" id="tit" placeholder="Title" class="mt-1 text-center"
+                                required>
+                        </div>
+                        <div id="tasks" class="bg-blue border border-dark rounded shadow p-2 m-3">
+                            <h5 for="tks">Tasks
+                                <input type="button" value="+" onclick="addTask()" class="btn btn-success btn-sm">
+                                <input type="button" value="-" onclick="rmTask()" class="btn btn-danger btn-sm"></h5>
+                            <input type="text" name="tasks" id="task1" placeholder="Task 1" class="mt-1 text-center"
+                                required>
+                        </div>
+                        <div id="deadline" class="bg-blue border border-dark rounded shadow p-2 m-3">
+                            <h5 for="deadln">Dealine</h5>
+                            <input type="date" name="deadline" id="deadln" required>
+                        </div>
+                        <input type="submit" value="Add" class="btn btn-success btn-lg">
+                    </form>
+                </div>
+            </div>
+            <div class="col-7 m-2">
+                <div class="rounded shadow p-2 text-white text-center">
+                    <h2 class="bg-blue rounded shadow p-1 m-1">Todo List</h2>
+                    <% (Object.values(todos).reverse()).forEach(todo => { 
                 if( (typeof(todo.title) == "undefined" ) || (typeof(todo.done) != "undefined" && todo.done)){
                 return; 
              } %>
-                <div class="border rounded shadow p-2 m-3">
-                    <a href="/todo/<%= Number(todo.id) %>" style="text-decoration: none;">
-                        <h3 class="bg-white text-dark rounded"><%= todo.title %> </h3>
-                        <h6 class="text-white"><%= todo.deadline %> </h6>
-                    </a>
+                    <div class="bg-blue border rounded shadow p-1 m-2 list">
+                        <details>
+                            <summary class="p-1"><%= todo.title %><a href="/todo/<%= Number(todo.id) %>"
+                                    class="show btn btn-dark btn-sm">Show</a></summary>
+                            <p class="para h5 p-2">DeadLine: <%= todo.deadline %></p>
+                        </details>
+                    </div>
+                    <% }) %>
                 </div>
-                <% }) %>
             </div>
+            <%- include('layouts/social') -%>
         </div>
     </div>
     <%- include('layouts/foot') -%>
     <script src="/assets/js/todo.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 
 </html>
