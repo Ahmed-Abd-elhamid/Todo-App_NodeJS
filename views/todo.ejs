@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="col-7 m-2">
-                <div class="rounded shadow p-2 text-white text-center">
-                    <h2 class="bg-blue rounded shadow p-1 m-1">Todo List</h2>
+                <div class="col-12 border border-white rounded shadow-lg p-2 text-center">
+                    <h2 class="bg-blue text-white rounded shadow p-1 m-1">Todo List</h2>
                     <% (Object.values(todos).reverse()).forEach(todo => { 
                 if( (typeof(todo.title) == "undefined" ) || (typeof(todo.done) != "undefined" && todo.done)){
                 return; 

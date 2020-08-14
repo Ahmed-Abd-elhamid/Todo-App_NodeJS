@@ -15,8 +15,8 @@
     <div class="container content">
         <div class="row justify-content-center">
             <div class="col-8 p-2 text-center">
-                <div class="rounded shadow p-2 text-white text-center">
-                    <h3 class="bg-blue rounded shadow p-1 m-1">Todo History</h3>
+                <div class="col-12 border border-white rounded shadow-lg p-2 text-center">
+                    <h3 class="bg-blue text-white rounded shadow p-1 m-1">Todo History</h3>
                     <% (Object.values(todos).reverse()).forEach(todo => { 
                 if( (typeof(todo.title) == "undefined" ) || (typeof(todo.done) != "undefined" && !todo.done)){
                 return; 

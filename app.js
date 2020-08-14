@@ -28,7 +28,10 @@ app.post('/todo', urlencodedParser, (req, res) => {
 
 app.get('/todo/:id', (req, res) => {
     let query = req.query;
-    if (query.done) cookie.updateCookie(req, res); 
+    if (query.done){
+        cookie.updateCookie(req, res);
+        return res.status(204).redirect(`/todo/${req.params.id}`);
+    }
     res.status(200).contentType('text/html').render('todo_show', { todo: cookie.getCookie(req) });
 });
 
