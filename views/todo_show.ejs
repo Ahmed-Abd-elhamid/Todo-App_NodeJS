@@ -43,7 +43,7 @@
                                 <input type="hidden" name="done" value="done" />
                                 <input type="submit" value="<%= todo.done ? 'UnDone':'Done'; %>" class="btn <%= todo.done ? 'btn-dark':'btn-success'; %> btn1">
                             </form>
-                            <form action="" method="delete"
+                            <form action="" method="post"
                                 onsubmit="return confirm('Are You Sure You want to Delete this?');">
                                 <input type="submit" value="Delete" class="btn btn-danger btn2">
                             </form>
