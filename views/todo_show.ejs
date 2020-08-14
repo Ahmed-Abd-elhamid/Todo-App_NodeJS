@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="To do list web app">
+    <title>ToDo</title>
+    <link rel="shortcut icon" href="/assets/images/todo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/stylesheets/style.css">
+    <link rel="stylesheet" href="/assets/stylesheets/todo.css">
+    <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
+    <script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <%- include('layouts/head') -%>
+    <div class="container content">
+        <div class="row justify-content-center">
+            <% if (data && data.id) { %>
+            <div class="col-9 bg-dark rounded shadow m-2 p-2 text-white">
+                <ul>
+                    <li>ID: <%= data.id %> </li>
+                    <li>Title: <%= data.title %> </li>
+                    <li>Tasks:
+                        <ol>
+                            <% data.tasks.forEach(task => { %>
+                            <li><%= task %> </li>
+                            <% }) %>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <%- include('layouts/foot') -%>
+</body>
+
+</html>

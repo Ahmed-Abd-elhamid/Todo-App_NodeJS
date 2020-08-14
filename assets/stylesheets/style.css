@@ -1,0 +1,11 @@
+body {
+    background-image: url('/assets/images/flower.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.content {
+    width: auto;
+    min-height: 620px;
+    padding: 0 15px;
+}
