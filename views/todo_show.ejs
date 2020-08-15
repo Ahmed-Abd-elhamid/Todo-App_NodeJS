@@ -12,9 +12,9 @@
 
 <body>
     <%- include('layouts/head') -%>
-    <% if (todo && todo.id) { %>
     <div class="container content">
         <div class="row justify-content-center">
+            <% if (todo && todo.id) { %>
             <div class="todos-container">
                 <div class="todo">
                     <div class="todo-preview">
@@ -41,7 +41,8 @@
                         <div class="text-center">
                             <form action="" method="get">
                                 <input type="hidden" name="done" value="done" />
-                                <input type="submit" value="<%= todo.done ? 'UnDone':'Done'; %>" class="btn <%= todo.done ? 'btn-dark':'btn-success'; %> btn1">
+                                <input type="submit" value="<%= todo.done ? 'UnDone':'Done'; %>"
+                                    class="btn <%= todo.done ? 'btn-dark':'btn-success'; %> btn1">
                             </form>
                             <form action="" method="post"
                                 onsubmit="return confirm('Are You Sure You want to Delete this?');">
@@ -51,11 +52,16 @@
                     </div>
                 </div>
             </div>
-
             <%- include('layouts/social') -%>
+            <% }else{ %>
+            <div class="todos-container">
+                <div class="todo p-3 m-3">
+                    <h3 class="text-center">No avaliable result!</h3>
+                </div>
+            </div>
+            <% } %>
         </div>
     </div>
-    <% } %>
     <%- include('layouts/foot') -%>
     <script src="/assets/js/script.js"></script>
 </body>
